@@ -3,16 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TODO List</title>
+    <title>Todo App</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
-      <h2>ToDo List</h2>
-      <form class="list-form">
-        <input type="text" name="task" id="task" />
-        <button type="submit" class="submit-btn">+</button>
-      </form>
+      <h1>Todo List</h1>
+
+      <div class="todo-input">
+        <input type="text" id="title" placeholder="Title" class="input-field" />
+        <input
+          type="text"
+          id="description"
+          placeholder="Description"
+          class="input-field"
+        />
+        <input type="date" id="dueDate" class="input-field" />
+        <button onclick="addTodo()" class="btn-add">Add Todo</button>
+      </div>
+
+      <ul id="todoList" class="todo-list"></ul>
     </div>
+
     <script src="script.js"></script>
   </body>
 </html>
