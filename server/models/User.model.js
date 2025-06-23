@@ -1,22 +1,10 @@
 const mongoose = require("mongoose");
 
 const todoSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  dueDate: {
-    type: Date,
-    required: true,
-  },
-  isCompleted: {
-    type: Boolean,
-    default: false,
-  },
+  title: String,
+  description: String,
+  dueDate: Date,
+  isCompleted: Boolean,
   createdAt: {
     type: Date,
     default: Date.now,

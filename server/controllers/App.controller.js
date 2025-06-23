@@ -32,21 +32,26 @@ exports.addTodo = async (req, res) => {
 // Cập nhật todo
 exports.updateTodo = async (req, res) => {
   const { id } = req.params;
-  const { title, description, dueDate, isCompleted } = req.body;
+  const updateData = {};
 
-  try {
-    const parsedDueDate = new Date(dueDate);
+  if (req.body.title !== undefined) updateData.title = req.body.title;
+  if (req.body.description !== undefined)
+    updateData.description = req.body.description;
+  if (req.body.isCompleted !== undefined)
+    updateData.isCompleted = req.body.isCompleted;
+
+  if (req.body.dueDate !== undefined) {
+    const parsedDueDate = new Date(req.body.dueDate);
     if (isNaN(parsedDueDate)) {
       return res.status(400).json({ message: "Invalid dueDate format" });
     }
+    updateData.dueDate = parsedDueDate;
+  }
 
-    // Cập nhật Todo theo ID
-    const updatedTodo = await Todo.findByIdAndUpdate(
-      id,
-      { title, description, dueDate: parsedDueDate, isCompleted },
-      { new: true }
-    );
-
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
     if (!updatedTodo) {
       return res.status(404).json({ message: "Todo not found" });
     }
