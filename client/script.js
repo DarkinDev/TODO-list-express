@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:3000/todo";
+const apiUrl = "http://localhost:3000/todo"; // API endpoint
 
 // Hàm lấy danh sách todo
 async function fetchTodos() {
@@ -9,7 +9,7 @@ async function fetchTodos() {
     }
     const todos = await response.json();
     const todoList = document.getElementById("todoList");
-    todoList.innerHTML = "";
+    todoList.innerHTML = ""; // Clear the todo list before adding new items
 
     todos.forEach((todo) => {
       const li = document.createElement("li");
@@ -66,6 +66,22 @@ async function toggleComplete(id, isCompleted) {
     fetchTodos();
   } catch (error) {
     console.error("Error updating todo completion:", error);
+  }
+}
+
+async function deleteTodo(id) {
+  try {
+    const response = await fetch(`${apiUrl}/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete todo");
+    }
+
+    fetchTodos();
+  } catch (error) {
+    console.error("Error deleting todo:", error);
   }
 }
 
