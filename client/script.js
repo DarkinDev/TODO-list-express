@@ -1,4 +1,10 @@
-const apiUrl = "http://localhost:3000/todo"; // API endpoint
+const sortable = new Draggable.Sortable(document.querySelectorAll("ul"), {
+  draggable: "li",
+  handle: ".image",
+});
+sortable.on("sortable:start");
+
+const apiUrl = "http://localhost:3000/todo";
 
 // Hàm lấy danh sách todo
 async function fetchTodos() {
@@ -13,6 +19,11 @@ async function fetchTodos() {
 
     todos.forEach((todo) => {
       const li = document.createElement("li");
+
+      // Tạo hamburger cạnh li để kéo thả
+      const hamburger = document.createElement("img");
+      hamburger.src = "svg/hamburger.svg";
+      hamburger.className = "image";
 
       // Tạo checkbox để thay đổi trạng thái hoàn thành
       const checkbox = document.createElement("input");
@@ -35,6 +46,7 @@ async function fetchTodos() {
       deleteBtn.onclick = () => deleteTodo(todo._id); // Xóa todo khi nhấn nút
 
       // Thêm checkbox, text và nút delete vào li
+      li.appendChild(hamburger);
       li.appendChild(checkbox);
       li.appendChild(todoText);
       li.appendChild(deleteBtn);
